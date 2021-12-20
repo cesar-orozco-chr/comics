@@ -1,0 +1,10 @@
+{% macro list(items, attribute, title) %}
+  {% if items|length > 1 %}
+    <h4><spam class="label label-primary"> {{ title }} </spam></h4>
+    <ul class="list-group">
+      {% for i in items %}
+        <li class="list-group-item">{{i[attribute]}}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endmacro %}

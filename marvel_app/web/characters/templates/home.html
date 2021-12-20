@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Characters</h1>
+  </div>
+  <div class="well">
+    <p>Marvel character list. To show details, click on the image or <b>details</b> button.</p>
+</div>
+<div class="container books">
+    <div class="row">
+    {% for c in characters %}
+    <div class="container books">
+        <div class="row">
+        {% for c in characters %}
+            <div class="col-md-3">
+                <a href="{{ url_for('characters.character_details', char_name=c.name)}}"><img src="{{ c.thumbnail.path }}.{{ c.thumbnail.extension }}" alt="book-img" height="200" width="190" class="img-rounded"></a>
+                <h4>{{ c.name }} </h4>
+                <p>
+                    <button type="button" class="btn btn-sm btn-info">
+                        <a href="{{ url_for('characters.character_details', char_name=c.name)}}" style="color: honeydew;" >details</a>
+                    </button>
+                </p>
+                <br><br>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+    
+    </div>
+</div>
+{% endblock %}
