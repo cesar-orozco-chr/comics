@@ -25,4 +25,7 @@ def create_app(config_type):
     from web.characters import characters
     app.register_blueprint(characters)
 
+    from web.comics import comics
+    app.register_blueprint(comics)
+
     return app

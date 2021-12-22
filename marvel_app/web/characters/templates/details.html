@@ -1,5 +1,5 @@
 {% extends 'layout.html' %}
-{% from 'macros.html' import list %}
+{% from 'macros.html' import list, list_url %}
 {% block content %}
 </div>
 <div class="container">
@@ -26,16 +26,16 @@
     <hr>
     <div class="row">
         <div class="col-md-4">
-            {{ list(comics,'name', 'Comics appeared in') }}
+            {{ list_url(comics, 'Comics appeared in','comics.display_comic_by_id') }}
         </div>
         <div class="col-md-4">
-            {{ list(series,'name', 'Series appeared in') }}
+            {{ list(series, 'Series appeared in') }}
         </div>
         <div class="col-md-4">
-            {{ list(events,'name', 'Events appeared in') }}
+            {{ list(events, 'Events appeared in') }}
         </div>
         <div class="col-md-3">
-            {{ list(stories,'name', 'Stories appeared in') }}
+            {{ list(stories, 'Stories appeared in') }}
         </div>
     </div>
 

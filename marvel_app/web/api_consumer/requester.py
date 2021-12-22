@@ -3,14 +3,15 @@ from hashlib import md5
 from time import time
 import requests
 import os
-from abc import abstractmethod
-from backend import create_mongo_client
+from .backend import create_mongo_client
 
 class BaseEndpoint():
 
-    def __init__(self, endpoint_index) -> None:
+    def __init__(self, 
+                endpoint_index,
+                config_file=os.path.join(os.getcwd(),'config.ini') ) -> None:
         self._config = ConfigParser()
-        self._config.read(os.path.join(os.getcwd(),'config.ini'))
+        self._config.read(config_file)
         self._private_key = self._config['api']['private_key']
         self._public_key = self._config['api']['public_key']
         self.base_endpoint = self._config['endpoint'][endpoint_index]
@@ -30,9 +31,14 @@ class BaseEndpoint():
 
 class CharactersEndpoint(BaseEndpoint):
 
-    def __init__(self, endpoint_index='characters') -> None:
-        super().__init__(endpoint_index)
-    
+    def __init__(self, endpoint_index ='characters', config_file=os.path.join(os.getcwd(), 'config.ini')) -> None:
+        super().__init__(endpoint_index, config_file=config_file)
+
+class ComicsEndpoint(BaseEndpoint):
+
+    def __init__(self, endpoint_index='comics', config_file=os.path.join(os.getcwd(), 'config.ini')) -> None:
+        super().__init__(endpoint_index, config_file=config_file)
+
 class BaseRequest():
 
     def __init__(self) -> None:
