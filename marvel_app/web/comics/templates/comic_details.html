@@ -1,0 +1,39 @@
+{% extends 'layout.html' %}
+{% from 'macros.html' import list, list_url, label_url %}
+
+{% block content %}
+<div class="container">
+    <h2><spam class="label label-default"> {{ comic.title }} </spam></h2>
+    <hr>
+    <div class="row">
+        <div class="col-md-3">
+            <img src="{{ comic.thumbnail.path }}.{{ comic.thumbnail.extension }}" alt="book-img" height="200" width="190" class="img-rounded">           
+        </div>
+        <div class="col-md-3">
+            {% if comic.description is defined %}
+                <p> {{ comic.description }}</p>
+            {% else %}
+                <p>Comic description is missing!</p>
+            {% endif%}
+            <p>
+                <button type="button" class="btn btn-sm btn-info">
+                    <a href="{{ url_for('characters.display_characters')}}" style="color: honeydew;" >back</a>
+                </button>
+            </p>
+            <br><br>
+        </div>
+        <div class="col-md-3">
+            <p><spam class="label label-primary">Serie</spam> {{serie.name}}</p>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-4">
+            {{ list_url(characters,'Characters associated', 'characters.character_details_by_id') }}
+        </div>
+        <div class="col-md-4">
+        </div>
+    </div>
+    {{series}}
+</div>
+{% endblock %}

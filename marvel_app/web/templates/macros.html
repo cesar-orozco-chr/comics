@@ -1,0 +1,27 @@
+{% macro list(items, title) %}
+  {% if items|length > 1 %}
+    <h4><spam class="label label-primary"> {{ title }} </spam></h4>
+    <ul class="list-group">
+      {% for i in items %}
+        <li class="list-group-item">{{i.name}}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endmacro %}
+
+{% macro list_url(items, title, url) %}
+  {% if items|length > 1 %}
+    <h4><spam class="label label-primary"> {{ title }} </spam></h4>
+    <ul class="list-group">
+      {% for i in items %}
+        <li class="list-group-item"><a href="{{url_for(url, id=i.id)}}"> {{i.name}}</a></li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endmacro %}
+
+{% macro label_url(text, url) %}
+<div class="col-md-3">
+  <p><spam class="label label-primary">Serie</spam> <a href="{{url}}">{{serie.name}}</a></p>
+</div>
+{% endmacro %}
