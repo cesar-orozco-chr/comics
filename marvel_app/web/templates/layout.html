@@ -1,0 +1,59 @@
+{% import "bootstrap/wtf.html" as wtf %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+    {# head #}
+    {% block head %}
+        <head>
+            <title> Marvel Interactions inc </title>
+            <meta charset="UTF-8">
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+            <link href="https://fonts.googleapis.com/css?family=Sansita" rel="stylesheet">
+        
+        </head>
+    {% endblock head %}
+
+    {# body #}
+    {% block body %}
+    <body>
+    <div class="wrapper">
+        {# navigation bar #}
+        {% block navbar %}
+        <nav class="navbar navbar-inverse">
+            <div class="container">
+                <a class="navbar-brand title" href="{{url_for('characters.display_characters')}}">Marvel Interactions</a>
+
+                <ul class="nav navbar-nav pull-right nav-list">
+                    <li><a href=""> Home </a></li>
+                    <li><a href=""> Register </a></li>
+                </ul>
+            </div>
+        </nav>
+        {% endblock navbar %}
+
+        {# flash messaging #}
+        {% for message in get_flashed_messages() %}
+            <div class="container alert alert-info">
+                <button type="button" class="close" data-dismiss="alert"></button>
+                {{ message }}
+            </div>
+        {% endfor %}
+        <div class="container theme-showcase" role="main">
+            {# empty block for custom content #}
+            {% block content %} {% endblock content %}
+        </div>
+        {# footer #}
+        {% block footer %}
+        <footer>
+            <div class="container ftr">
+                <hr>
+                <p class="text-center small"> cesar orozco &copy;	| 2021 </p>
+            </div>
+        </footer>
+        {% endblock footer %}
+
+    </div>
+    </body>
+    {% endblock body %}
+</html>
