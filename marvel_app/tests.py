@@ -1,6 +1,8 @@
+from datetime import datetime
 from marvel import Marvel
 from db import MongoDB
 from configparser import ConfigParser
+from pymongo import DeleteMany
 import json
 import os
 
@@ -10,6 +12,7 @@ marvel_creds.read('config/account.ini')
 
 PUBLIC_KEY = marvel_creds['marvel account']['public_key']
 PRIVATE_KEY = marvel_creds['marvel account']['private_key'] 
+DEFAULT_DB = marvel_creds['db']['database']
 
 m = Marvel(PUBLIC_KEY, PRIVATE_KEY)
 
@@ -24,9 +27,7 @@ def read_json_sample(json_file):
 
 def query_character():
     characters = m.characters.get(1011334)
-
     print(characters, type(characters))
-
     write_json_sample(data=characters, json_file='character.json')
     
 
@@ -57,7 +58,7 @@ def describe_dict(data):
         result.append([k,type(v)])
     return result
 
-if __name__ == '__main__':
+def main():
     with open('marvel_schema.txt', 'w') as fw:   
 
         for f in ['event.json', 
@@ -90,12 +91,28 @@ if __name__ == '__main__':
     result = characters.insert_one(c)
     print('Inserted {0} on collection'.format(result.inserted_id))  
 
+def query_all_characters():
+    characters = m.characters.all()
+    write_json_sample(characters, 'characters.json')
+
+if __name__ == '__main__':
+
     """
     TO DO
     1. Validate inserted data in a collection
     2. Query all characters and store in Mongo db
     3. Query all comics associated to each character and store in Mongo db
-    """      
+    """ 
+    FILES = ['characters.json']
+    for json_f in FILES:
+        if not os.path.exists(json_f):
+            query_all_characters()
 
+    r_characters = read_json_sample('characters.json')
+    mongo_client = MongoDB('config/account.ini').get_mongo_client()
+    db = mongo_client.get_database(DEFAULT_DB)
+    results = r_characters['data']['results']
+    inserted_ids = db.characters.insert_many(results)
+    #inserted_log_id = db.logging.insert_one({'ids':inserted_ids, 'date':datetime.now() })
+    print(f"Inserted {inserted_ids}")
 
-        
