@@ -39,6 +39,12 @@ class ComicsEndpoint(BaseEndpoint):
     def __init__(self, endpoint_index='comics', config_file=os.path.join(os.getcwd(), 'config.ini')) -> None:
         super().__init__(endpoint_index, config_file=config_file)
 
+class CreatorsEndpoint(BaseEndpoint):
+
+    def __init__(self, endpoint_index='creators', config_file=os.path.join(os.getcwd(), 'config.ini')) -> None:
+        super().__init__(endpoint_index, config_file=config_file)
+
+
 class BaseRequest():
 
     def __init__(self) -> None:

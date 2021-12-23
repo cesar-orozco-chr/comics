@@ -20,8 +20,14 @@
   {% endif %}
 {% endmacro %}
 
-{% macro label_url(text, url) %}
-<div class="col-md-3">
-  <p><spam class="label label-primary">Serie</spam> <a href="{{url}}">{{serie.name}}</a></p>
-</div>
+{% macro label_url(item, label, url) %}
+
+  <p><spam class="label label-primary">{{label}}</spam> <a href="{{url_for(url, id=item.id)}}">{{item.name}}</a></p>
+
+{% endmacro %}
+
+{% macro label(item, label) %}
+
+  <p><spam class="label label-primary">{{label}}</spam> {{item}}</p>
+
 {% endmacro %}

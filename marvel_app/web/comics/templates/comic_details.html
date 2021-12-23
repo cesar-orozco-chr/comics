@@ -1,13 +1,13 @@
 {% extends 'layout.html' %}
-{% from 'macros.html' import list, list_url, label_url %}
+{% from 'macros.html' import list, list_url, label_url, label %}
 
 {% block content %}
 <div class="container">
     <h2><spam class="label label-default"> {{ comic.title }} </spam></h2>
     <hr>
     <div class="row">
-        <div class="col-md-3">
-            <img src="{{ comic.thumbnail.path }}.{{ comic.thumbnail.extension }}" alt="book-img" height="200" width="190" class="img-rounded">           
+        <div class="col-md-4">
+            <img src="{{ comic.thumbnail.path }}.{{ comic.thumbnail.extension }}" alt="book-img" height="531" width="350" class="img-rounded">           
         </div>
         <div class="col-md-3">
             {% if comic.description is defined %}
@@ -19,11 +19,18 @@
                 <button type="button" class="btn btn-sm btn-info">
                     <a href="{{ url_for('characters.display_characters')}}" style="color: honeydew;" >back</a>
                 </button>
+                {% for url in comic.urls %}
+                    <button type="button" class="btn btn-sm btn-info">
+                        <a href="{{url.url}}" style="color: honeydew;" >{{url.type}}</a>
+                    </button>        
+                {% endfor%}
             </p>
             <br><br>
         </div>
-        <div class="col-md-3">
-            <p><spam class="label label-primary">Serie</spam> {{serie.name}}</p>
+        <div class="col-md-4">
+            {{ label_url(serie,'Serie','characters.character_details_by_id') }}
+            {{ label(comic.format,'Format',) }}
+            {{ label(comic.pageCount,'Pages',) }}
         </div>
     </div>
     <hr>
@@ -32,6 +39,10 @@
             {{ list_url(characters,'Characters associated', 'characters.character_details_by_id') }}
         </div>
         <div class="col-md-4">
+            {{ list_url(creators, 'Comic Creators', 'creators.display_creators_by_id')}}
+        </div>
+        <div class="col-md-4">
+            {{ list_url(stories, 'Stories', 'characters.character_details_by_id')}}
         </div>
     </div>
     {{series}}

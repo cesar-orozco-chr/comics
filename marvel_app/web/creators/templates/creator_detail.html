@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+{% from 'macros.html' import list, list_url, label_url, label %}
+
+{% block content %}
+<div class="container">
+    <h2><spam class="label label-default"> {{ creator.fullName }} </spam></h2>
+    <hr>
+    <div class="row">
+        <div class="col-md-4">
+            <img src="{{ creator.thumbnail.path }}.{{ creator.thumbnail.extension }}" alt="book-img" height="531" width="350" class="img-rounded">           
+            <br><br>
+            <p>
+            {% for url in creator.urls %}
+            <button type="button" class="btn btn-sm btn-info">
+                <a href="{{url.url}}" style="color: honeydew;" >{{url.type}}</a>
+            </button>        
+            {% endfor%}
+            </p>
+        </div>
+        <div class="col-md-4">
+            {{ list_url(comics,'Comics by '+creator.firstName, 'comics.display_comic_by_id') }}
+        </div>
+        <div class="col-md-4">
+            {{ list_url(series,'Series by '+creator.firstName, 'characters.character_details_by_id') }}
+        </div>
+    </div>
+</div>
+{% endblock%}
